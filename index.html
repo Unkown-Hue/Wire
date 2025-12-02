@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chess Vision Trainer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chess Vision Trainer</h1>
+            <div class="stats">
+                <span class="stat-item">Score: <span id="score">0</span>/<span id="total">0</span></span>
+                <span class="stat-item">Accuracy: <span id="accuracy">0</span>%</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="game-area">
+                <div class="board-container">
+                    <div class="file-labels top">
+                        <span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span>
+                    </div>
+                    <div class="board-wrapper">
+                        <div class="rank-labels left">
+                            <span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
+                        </div>
+                        <div id="chessboard" class="chessboard"></div>
+                        <div class="rank-labels right">
+                            <span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
+                        </div>
+                    </div>
+                    <div class="file-labels bottom">
+                        <span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span>
+                    </div>
+                </div>
+
+                <div class="controls-panel">
+                    <div id="menu-screen" class="screen active">
+                        <h2>Select Training Mode</h2>
+                        <div class="menu-buttons">
+                            <button class="menu-btn" data-mode="movement">
+                                <span class="btn-icon">&#9813;</span>
+                                <span class="btn-text">Movement Challenge</span>
+                                <span class="btn-desc">Identify all valid moves</span>
+                            </button>
+                            <button class="menu-btn" data-mode="pathfinding">
+                                <span class="btn-icon">&#9816;</span>
+                                <span class="btn-text">3-Move Puzzle</span>
+                                <span class="btn-desc">Reach target in 3 moves</span>
+                            </button>
+                            <button class="menu-btn" data-mode="color">
+                                <span class="btn-icon">&#9639;</span>
+                                <span class="btn-text">Square Colors</span>
+                                <span class="btn-desc">Identify square colors</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="setup-screen" class="screen">
+                        <h2 id="setup-title">Setup</h2>
+                        <div class="setup-options">
+                            <div class="option-group" id="piece-select-group">
+                                <label>Select Piece:</label>
+                                <div class="piece-buttons">
+                                    <button class="piece-btn" data-piece="Queen">&#9813; Queen</button>
+                                    <button class="piece-btn" data-piece="Rook">&#9814; Rook</button>
+                                    <button class="piece-btn" data-piece="Bishop">&#9815; Bishop</button>
+                                    <button class="piece-btn" data-piece="Knight">&#9816; Knight</button>
+                                </div>
+                            </div>
+                            <div class="option-group" id="obstruction-group">
+                                <label>Obstructions: <span id="obs-value">0</span></label>
+                                <input type="range" id="obstructions" min="0" max="10" value="0">
+                            </div>
+                            <div class="option-group" id="time-limit-group" style="display: none;">
+                                <label>Time Limit: <span id="time-value">30</span>s</label>
+                                <input type="range" id="time-limit" min="10" max="120" value="30" step="10">
+                            </div>
+                        </div>
+                        <div class="setup-buttons">
+                            <button id="start-btn" class="primary-btn">Start</button>
+                            <button id="back-btn" class="secondary-btn">Back</button>
+                        </div>
+                    </div>
+
+                    <div id="game-screen" class="screen">
+                        <div id="game-info">
+                            <h3 id="challenge-title">Challenge</h3>
+                            <p id="challenge-desc"></p>
+                            <p id="attempts-info"></p>
+                        </div>
+                        <div id="timer-display" style="display: none;">
+                            <span id="timer">30</span>s
+                        </div>
+                        <div id="selected-moves">
+                            <p>Selected: <span id="selected-list">None</span></p>
+                        </div>
+                        <div id="feedback" class="feedback"></div>
+                        <div class="game-buttons">
+                            <button id="submit-btn" class="primary-btn">Submit</button>
+                            <button id="hint-btn" class="secondary-btn" disabled>Hint (3 attempts)</button>
+                            <button id="next-btn" class="primary-btn" style="display: none;">Next Puzzle</button>
+                            <button id="quit-btn" class="secondary-btn">Quit</button>
+                        </div>
+                    </div>
+
+                    <div id="color-game-screen" class="screen">
+                        <div id="color-game-info">
+                            <h3>What color is this square?</h3>
+                            <p id="square-question" class="square-name"></p>
+                        </div>
+                        <div id="color-timer-display">
+                            <span id="color-timer">30</span>s
+                        </div>
+                        <div id="color-score">
+                            <span>Correct: <span id="color-correct">0</span></span>
+                        </div>
+                        <div class="color-buttons">
+                            <button id="white-btn" class="color-btn white-choice">Light</button>
+                            <button id="blue-btn" class="color-btn blue-choice">Dark</button>
+                        </div>
+                        <div id="color-feedback" class="feedback"></div>
+                        <button id="color-quit-btn" class="secondary-btn">Quit</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
